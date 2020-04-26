@@ -1,0 +1,152 @@
+######################
+# - Conky settings - #
+######################
+update_interval 1
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 1
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+format_human_readable
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont Ubuntu:size=12
+override_utf8_locale yes
+text_buffer_size 2048
+
+#############################
+# - Window specifications - #
+#############################
+own_window_class Conky
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_argb_visual yes
+own_window_argb_value 50
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+alignment top_right
+gap_x -1910
+gap_y 20
+minimum_size 350 1100
+maximum_width 482
+
+default_bar_size 80 8
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades no
+draw_graph_borders no
+
+default_color cccccc
+
+color0 white
+color1 555753
+color2 FFFFFF
+color3 2E3436
+lua_load /home/tim/.conky/conkyCairo.lua
+lua_draw_hook_post conky_main white 555753 8 off cairo off off
+
+TEXT
+#############
+# - CLOCK - #
+#############
+
+${voffset -5}
+${goto -50}${font Michroma:style=Bold:size=12}${color2}${time %A %d %b %Y}${color}${font} | \
+${font Michroma:style=Bold:size=10}${color1}${time %H}${time :%M}${time :%S}${color}${font}\
+
+##############
+# - SYSTEM - #
+##############
+# |--CPU
+${voffset 15}${goto 50}${font Michroma:size=8}${execi 3600 cat /proc/cpuinfo | grep -i "^model name" | awk -F": " '{print $2}' | head -1 | sed 's/\<Processor\>//g'}
+${voffset 55}
+${font Michroma:size=15}${color2}C${color}
+${font Michroma:size=15}${color2}P${color}
+${font Michroma:size=15}${color2}U${color}
+${voffset -26}${goto 310}${font zektonbi:size=10}${color FFFFFF}${execi 30 cat /sys/devices/platform/f71882fg.1152/temp1_input | sed 's/\(.\)..$/.\1/'} °C${font}
+
+${voffset -194}
+${goto 50}${cpugraph cpu1 15,120 587B5A  B10000 -t}${goto 180}${voffset -5}${font zektonbi:size=10}${color1}${cpu cpu1}% ${goto 210}/ ${color}${color2}${freq_g 1}${color} GHz${font}${voffset 5}
+${voffset -25}
+${goto 50}${cpugraph cpu2 15,120 587B5A  B10000 -t}${goto 180}${font zektonbi:size=10}${color1}${cpu cpu2}% ${goto 210}/ ${color}${color2}${freq_g 2}${color} GHz${font}
+${voffset -20}
+${goto 50}${cpugraph cpu3 15,120 587B5A  B10000 -t}${goto 180}${font zektonbi:size=10}${color1}${cpu cpu3}% ${goto 210}/ ${color}${color2}${freq_g 3}${color} GHz${font}
+${voffset -20}
+${goto 50}${cpugraph cpu4 15,120 587B5A  B10000 -t}${goto 180}${font zektonbi:size=10}${color1}${cpu cpu4}% ${goto 210}/ ${color}${color2}${freq_g 4}${color} GHz${font}
+${voffset -20}
+${goto 50}${cpugraph cpu5 15,120 587B5A  B10000 -t}${goto 180}${font zektonbi:size=10}${color1}${cpu cpu5}% ${goto 210}/ ${color}${color2}${freq_g 5}${color} GHz${font}
+${voffset -20}
+${goto 50}${cpugraph cpu6 15,120 587B5A  B10000 -t}${goto 180}${font zektonbi:size=10}${color1}${cpu cpu6}% ${goto 210}/ ${color}${color2}${freq_g 6}${color} GHz${font}
+${voffset -20}
+${goto 50}${cpugraph cpu7 15,120 587B5A  B10000 -t}${goto 180}${font zektonbi:size=10}${color1}${cpu cpu7}% ${goto 210}/ ${color}${color2}${freq_g 7}${color} GHz${font}
+${voffset -20}
+${goto 50}${cpugraph cpu8 15,120 587B5A  B10000 -t}${goto 180}${font zektonbi:size=10}${color1}${cpu cpu8}% ${goto 210}/ ${color}${color2}${freq_g 8}${color} GHz${font}
+${voffset -20}
+${goto 50}${cpugraph cpu0 80,310 000000 FFFFFF }
+
+# |--MEM
+${voffset -40}
+${goto 250}${memgraph 70,110 000000 FFFFFF }
+${voffset -98}
+${font Michroma:size=15}${color2}R${color}
+${font Michroma:size=15}${color2}A${color}
+${font Michroma:size=13}${color2}M${color}
+${voffset -110}
+${goto 50}${font Michroma:size=12}${color2}${memmax}${color} DDR3${font}
+
+${goto 50}${font zektonbi:size=10}${color1}$memperc%${color} / ${color2}${mem}${color}${font}
+${goto 50}${membar 10,310 -l}
+
+##########
+# - HD - #
+##########
+${voffset 20}
+${font Michroma:size=15}${color2}D${color}
+${goto 12}${font Michroma:size=15}${color2}I${color}
+${font Michroma:size=15}${color2}S${color}
+${font Michroma:size=15}${color2}K${color}
+${voffset -195}
+${goto 50}${font Michroma:size=10}${color2}SSD  ${color}${font zektonbi:size=10}${color2}( ${fs_size /} )${color}${font}\
+${voffset -2}${offset 65}${font Michroma:size=10}${color2}HDD  ${color}${font zektonbi:size=10}${color2}( 931.5GiB )${color}${font}
+${goto 60}${font Michroma:size=8}${color2}read${goto 110}${color}${diskio_read /dev/sda}${font}\
+${goto 240}${font Michroma:size=8}${color2}read${goto 290}${color}${diskio_read /dev/sdb}${font}${voffset -10}
+${goto 60}${font Michroma:size=8}${color2}write${goto 110}${color}${diskio_write /dev/sda}${font}\
+${goto 240}${font Michroma:size=8}${color2}read${goto 290}${color}${diskio_read /dev/sdb}${font}
+${goto 80}${font Michroma:style=Bold:size=14}root${font}
+${goto 55}${font size=12}${font zektonbi:size=10}${color1}${fs_used_perc /}%${color} / ${color2}${fs_used /}${color}${font}
+${goto 50}${fs_bar 10,115 /}
+${voffset -85}
+${goto 260}${font Michroma:style=Bold:size=14}home${font}
+${goto 245}${font size=12}${font zektonbi:size=10}${color1}${fs_used_perc /home}%${color} / ${color2}${fs_used /home}${color}${font}
+${goto 240}${fs_bar 10,115 /home}
+${goto 245}${font Michroma:style=Bold:size=14}Storage${font}
+${goto 245}${font size=12}${font zektonbi:size=10}${color1}${fs_used_perc /home/tim/Storage/}%${color} / ${color2}${fs_used /home/tim/Storage/}${color}${font}
+${goto 240}${fs_bar 10,115 /home/tim/Storage/}
+###############
+# - NETWORK - #
+###############
+${voffset 90}
+${font Michroma:size=12}${color2}N${color}
+${font Michroma:size=15}${color2}E${color}
+${font Michroma:size=15}${color2}T${color}
+${voffset -210}
+# |--WLAN0
+${goto 50}${font Michroma:size=10}${color2}WiFi${color}
+${goto 50}${font Michroma:size=8}up:   ${goto 100}${font zektonbi:size=8}${color1}${upspeed wlp5s0}${color} ${goto 150}/ ${offset 10}${color2}${totalup wlp5s0}${color}${font}${voffset -10}
+${goto 50}${font Michroma:size=8}down: ${goto 100}${font zektonbi:size=8}${color1}${downspeed wlp5s0}${color} ${goto 150}/ ${offset 10}${color2}${totaldown wlp5s0}${color}${font}${voffset -10}
+${goto 50}${font Michroma:size=8}signal: ${goto 100}${font zektonbi:size=8}${color1}${wireless_link_qual wlp5s0}%${color}${font}
+${goto 50}${downspeedgraph wlp5s0 40,310 000000 FFFFFF }
+
+${goto 50}${font Michroma:size=10}${color2}Wired${color}
+${goto 50}${font Michroma:size=8}up:   ${goto 100}${font zektonbi:size=8}${color1}${upspeed enp7s0}${color} ${goto 150}/ ${offset 10}${color2}${totalup enp7s0}${color}${font}${voffset -10}
+${goto 50}${font Michroma:size=8}down: ${goto 100}${font zektonbi:size=8}${color1}${downspeed enp7s0}${color} ${goto 150}/ ${offset 10}${color2}${totaldown enp7s0}${color}${font}
+${goto 50}${downspeedgraph enp7s0 40,310 000000 FFFFFF }
