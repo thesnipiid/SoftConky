@@ -1023,9 +1023,6 @@ function conky_main2(color, theme, n_cpu, swap, clock_theme, player, player_them
 	cairo_line_to (line, xp, 200)
 	cairo_stroke (line)
 
-    cairo_rectangle (lineBold, 0, 383, 13, 60)
-	cairo_stroke (lineBold)
-
 	cairo_destroy(cr)
 	cairo_destroy(line)
 	cairo_surface_destroy(cs)
