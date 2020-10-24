@@ -740,7 +740,7 @@ function conky_main(color, theme, n_cpu, swap, clock_theme, player, player_theme
 	local vert_space =70
 	local xp = hori_space
 	local yp = vert_space
-	local rad = 20
+	local rad = 12
 
 	cairo_set_line_cap (line, CAIRO_LINE_CAP_ROUND)
 	cairo_set_line_width (line, 2)
@@ -754,20 +754,20 @@ function conky_main(color, theme, n_cpu, swap, clock_theme, player, player_theme
 	cairo_set_line_cap (lineBold, CAIRO_LINE_CAP_BUTT)
 	cairo_set_line_width (lineBold, 40)
 	cairo_set_source_rgba (lineBold, rgb_to_r_g_b(0xFFFFFF,0.1))
-    cairo_rectangle (lineBold, 0, 100, 13, 223)
+    cairo_rectangle (lineBold, 0, 100, 13, 303)
 	cairo_stroke (lineBold)
 
-	yp=yp+83
+	yp=yp+123
 
 	-- CPU
-	for i=1,n_cpu - 4 do
+	for i=1,n_cpu - 6 do
 		cpu_number = ("cpu" .. i)
 		settings = {--CPU GRAPH CPU1
 			value=tonumber(conky_parse("${cpu " .. cpu_number .. "}")),
 			value_max=100              ,
 			x=xp                       , y=yp                        ,
 			graph_radius=rad            ,
-			graph_thickness=10         ,
+			graph_thickness=8         ,
 			graph_start_angle=180      ,
 			graph_unit_angle=0.9      , graph_unit_thickness=0.9    ,
 			graph_bg_colour=bgc        , graph_bg_alpha=bga          ,
@@ -785,18 +785,18 @@ function conky_main(color, theme, n_cpu, swap, clock_theme, player, player_theme
 			caption_fg_colour=fgc      , caption_fg_alpha=fga        ,
             returned=0,
 		};draw_gauge_ring(settings)
-		rad = rad + 12
+		rad = rad + 10
 	end
 
-    rad = 20
-	for i=5,n_cpu do
+    rad = 12
+	for i=7,n_cpu do
 		cpu_number = ("cpu" .. i)
 		settings = {--CPU GRAPH CPU1
 			value=tonumber(conky_parse("${cpu " .. cpu_number .. "}")),
 			value_max=100              ,
 			x=xp                       , y=yp                        ,
 			graph_radius=rad            ,
-			graph_thickness=10        ,
+			graph_thickness=8        ,
 			graph_start_angle=270     ,
 			graph_unit_angle=0.9      , graph_unit_thickness=0.9   ,
 			graph_bg_colour=bgc        , graph_bg_alpha=bga          ,
@@ -814,16 +814,16 @@ function conky_main(color, theme, n_cpu, swap, clock_theme, player, player_theme
 			caption_fg_colour=fgc      , caption_fg_alpha=fga        ,
             returned=1,
 		};draw_gauge_ring(settings)
-		rad = rad + 12
+		rad = rad + 10
 	end
 
-	yp=yp+180
+	yp=yp+220
 
 	cairo_move_to (line, 0, yp)
 	cairo_line_to (line, 990, yp)
 	cairo_stroke (line)
 
-    cairo_rectangle (lineBold, 0, 383, 13, 60)
+    cairo_rectangle (lineBold, 0, 463, 13, 60)
 	cairo_stroke (lineBold)
 
 	yp=yp+120
@@ -861,7 +861,7 @@ function conky_main(color, theme, n_cpu, swap, clock_theme, player, player_theme
 		};draw_gauge_ring(settings)
 	end
 
-    cairo_rectangle (lineBold, 0, 503, 13, 140)
+    cairo_rectangle (lineBold, 0, 583, 13, 140)
 	cairo_stroke (lineBold)
 
 	yp = yp + 50
@@ -870,11 +870,19 @@ function conky_main(color, theme, n_cpu, swap, clock_theme, player, player_theme
 	cairo_line_to (line, 990, yp)
 	cairo_stroke (line)
 
-	yp=yp+290
+	yp = yp + 150
 
-    cairo_rectangle (lineBold, 0, 703, 13, 230)
+	cairo_move_to (line, 40, yp)
+	cairo_set_source_rgba (line, rgb_to_r_g_b(0xFFFFFF,0.2))
+	cairo_line_to (line, 400, yp)
+	cairo_stroke (line)
+
+	yp=yp+140
+
+    cairo_rectangle (lineBold, 0, 783, 13, 230)
 	cairo_stroke (lineBold)
 
+	cairo_set_source_rgba (line, rgb_to_r_g_b(0xFF0000,0.2))
 	cairo_move_to (line, 0, yp)
 	cairo_line_to (line, 990, yp)
 	cairo_stroke (line)
@@ -888,7 +896,7 @@ end-- end main function
 
 -------------------------------------------------------------------------------
 --                                                                         MAIN2
-function conky_main2(color, theme, n_cpu, swap, clock_theme, player, player_theme)
+function conky_mai(color, theme, n_cpu, swap, clock_theme, player, player_theme)
 
 	if conky_window == nil then return end
 
